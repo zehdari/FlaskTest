@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sine Wave Data Stream</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #data {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Real-Time Sine Wave Data</h1>
+    <div id="data">Waiting for data...</div>
+    <script>
+        const eventSource = new EventSource("/stream");
+
+        eventSource.onmessage = function(event) {
+            const data = JSON.parse(event.data);
+            document.getElementById("data").textContent = `Time: ${data.time.toFixed(2)}s, Value: ${data.value.toFixed(4)}`;
+        };
+    </script>
+</body>
+</html>
